@@ -1,0 +1,44 @@
+import binascii
+
+
+def example():
+    intkeylist = []
+    intmsglist = []
+    message1 = b'The only way to escape the corruptible effect of praise is to go on working.'
+    m1 = string_to_list(pretty_hex(message1))
+    m1 = [int(x, 16) for x in m1]
+    IV = '7EB6CA01AD49CDC3A0EFDB3C84EC862E'
+    ciphertext1 = 'F8874AB12A0542EF73D6FF3092461A2F9DC45C7BEA2E27AFB4A9563929B3D5ABDDAEBFB9304BA0E338C16E4FC3715C4D65EFD6EB943A9E1C7187F19126F462AEBEBCEDF9571B0FA8563F196A'
+    c1 = string_to_list(ciphertext1)
+    c1 = [int(y, 16) for y in c1]
+    ciphertext2 = 'E5890FE82A1E0EF532CFB93D92570D7F94D65674BA2273FBAFA51B2A2AB88BFED4B5A3FB3841EEA12A877E42D334415831FECAEEDD208F1C6F91BD8969B16BAEEBB4EBF7'
+    c2 = string_to_list(ciphertext2)
+    c2 = [int(z, 16) for z in c2]
+    for z in range(len(m1)):
+        intkeylist += [m1[z] ^ c1[z]]
+    hexkeylist = ['{:02x}'.format(i).upper() for i in intkeylist]
+    key = ''.join(hexkeylist)
+    key = key[0:136]
+    k1 = string_to_list(key)
+    k1 = [int(v, 16) for v in k1]
+    for w in range(len(c2)):
+        intmsglist += [k1[w] ^ c2[w]]
+    chrmsglist = [chr(h) for h in intmsglist]
+    m2 = ''.join(chrmsglist)
+    print(m2)
+
+
+def string_to_list(s):
+    l = []
+    for j in range(0, len(s), 2):
+        l.append(s[j:j + 2])
+    return l
+
+
+def pretty_hex(c):
+    c = binascii.hexlify(c).upper().decode()
+    return c
+
+
+if __name__ == "__main__":
+    example()
