@@ -6,13 +6,6 @@ Last_Name = 'Warrier'
 First_Name = 'Varun'
 
 
-def string_to_list(s):
-    l = []
-    for j in range(0, len(s)):
-        l.append(s[j])
-    return l
-
-
 def aes_encrypt_ctr(k, text):
     e_cipher = AES.new(k, AES.MODE_ECB)
     c = e_cipher.encrypt(pad(text, 16))
@@ -26,7 +19,7 @@ def aes_input_av_test(plaintext, key, bit_list):
     bit_cipher = ''.join(format(ord(m), '08b') for m in str(ciphertext.decode('ISO-8859-1')))
     bit_plain = ''.join(format(ord(n), '08b') for n in str(plaintext.decode('ISO-8859-1')))
     for i in bit_list:
-        modified_ptext = string_to_list(bit_plain)
+        modified_ptext = list(bit_plain)
         if modified_ptext[i] == '0':
             modified_ptext[i] = '1'
             modified_ptext2 = ''.join(modified_ptext)
@@ -53,7 +46,7 @@ def aes_key_av_test(plaintext, key, bit_list):
     bit_cipher = ''.join(format(ord(m), '08b') for m in str(ciphertext.decode('ISO-8859-1')))
     bit_key = ''.join(format(ord(n), '08b') for n in str(key.decode('ISO-8859-1')))
     for i in bit_list:
-        modified_key = string_to_list(bit_key)
+        modified_key = list(bit_key)
         if modified_key[i] == '0':
             modified_key[i] = '1'
             modified_key2 = ''.join(modified_key)
